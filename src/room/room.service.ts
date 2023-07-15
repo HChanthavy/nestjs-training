@@ -2,6 +2,7 @@ import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import { Injectable } from '@nestjs/common';
 import { Redis } from 'ioredis';
 import { CreateRoomDto, UpdateRoomDto } from './dto/room.dto';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class RoomService {
@@ -23,8 +24,7 @@ export class RoomService {
   }
 
   async createRoom(createRoomDto: CreateRoomDto): Promise<any> {
-    const roomKeys = await this.redis.keys('room:*');
-    const roomId = roomKeys.length + 1;
+    const roomId = randomUUID;
     const room = { id: roomId, ...createRoomDto };
     await this.redis.set(`room:${roomId}`, JSON.stringify(room));
     return room;

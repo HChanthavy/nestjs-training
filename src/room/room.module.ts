@@ -3,6 +3,7 @@ import { RoomController } from './room.controller';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { RoomService } from './room.service';
 import { ConfigModule } from '@nestjs/config';
+import { RoomGateway } from './room.gateway';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { ConfigModule } from '@nestjs/config';
     }),
   ],
   controllers: [RoomController],
-  providers: [RoomService],
+  providers: [RoomService, RoomGateway],
 })
 export class RoomModule {}
